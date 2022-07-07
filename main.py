@@ -1,4 +1,5 @@
 import copy
+import time
 
 TAMANHO = 3
 
@@ -113,7 +114,7 @@ def sucessor(estado):
     aux_moldura = Moldura()
 
     aux_moldura.str_p_lista(estado)
-    print(aux_moldura.lista)
+    #print(aux_moldura.lista)
     sucessores = []
 
     for direcao in aux_moldura.movimentos:
@@ -124,15 +125,108 @@ def sucessor(estado):
     return sucessores
 
 
-
-
-
 m = Moldura()
 
+#print(m.str_p_lista('1234 5678'))
+#print(f'buraco:  {m.buraco}')
+#print(sucessor(m.lista_p_string()))
 
-print(m.str_p_lista('1234 5678'))
+n = Nodo()
+#n.estado = '2 3541687'
+n.estado = '12345678 '
+expandidos =  n.expande()
+
+for e in expandidos:
+   print(e.estado, e.custo, e.acao, e.pai.estado)
+
+
+def bfs(estado): #FRONTEIRA = FILA
+    explorados = []
+    fronteira = []
+    new = Nodo()
+    new.estado = estado
+    fronteira.append(new)
+
+    while fronteira:
+
+        n = fronteira.pop(0)
+        if n.estado == '12345678 ':
+            break
+            #return n
+        if n.estado not in explorados:
+            explorados.append(n.estado)
+            for vizinho in n.expande():
+                #print(f'vizinho: {vizinho.estado} custo: {vizinho.custo}')
+                #print(f'{len(explorados)} explorados')
+                #print(f'{len(fronteira)} fronteira')
+
+                fronteira.append(vizinho)
+
+
+    return n    #
+t = time.time()
+achou = bfs('2 3541687')
+print(achou.estado)
+print(achou.acao)
+print(achou.custo)
+print(achou.pai)
+print(time.time()-t)
+
+
+# DFS
+
+# 12345678
+# D
+# 68539
+# <__main__.Nodo object at 0x000002199E8AB0D0>
+# 118.71603679656982
+#
 
 
 
-print(m.buraco)
-print(sucessor(m.lista_p_string()))
+# BFS
+# 12345678
+# D
+# 23
+# <__main__.Nodo object at 0x000001496CA402B0>
+# 191.9502773284912      segundos
+#
+# B
+# BD
+# BDB
+# BDBE
+# BDBEC
+# BDBECD
+# BDBECDC
+# BDBECDCE
+# BDBECDCEB
+# BDBECDCEBE
+# BDBECDCEBEC
+# BDBECDCEBECD
+# BDBECDCEBECDB
+# BDBECDCEBECDBD
+# BDBECDCEBECDBDC
+# BDBECDCEBECDBDCE
+# BDBECDCEBECDBDCEB
+# BDBECDCEBECDBDCEBE
+# BDBECDCEBECDBDCEBEC
+# BDBECDCEBECDBDCEBECD
+# BDBECDCEBECDBDCEBECDB
+# BDBECDCEBECDBDCEBECDBB
+# BDBECDCEBECDBDCEBECDBB
+
+
+
+def dfs(estado): #FRONTEIRA = PILHA
+    pass
+
+def astar_hamming(estado): #NUM DE PECAS FORA DO LUGAR
+    pass
+
+def astar_manhattan(estado): #SOMA DISTANCIA MANHATTAN
+    pass
+
+
+
+
+
