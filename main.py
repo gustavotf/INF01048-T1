@@ -1,6 +1,8 @@
 import copy
 import time
 
+from queue import Queue
+
 TAMANHO = 3
 
 class Nodo:
@@ -9,6 +11,7 @@ class Nodo:
         self.pai = None
         self.acao = ''
         self.custo = 0
+
 
     def expande(self):
 
@@ -23,10 +26,18 @@ class Nodo:
             n.pai = self
             n.custo = self.custo + 1
 
+
             lista_nodos.append(n)
 
         return lista_nodos
+    def caminho(self):
 
+        s = ''
+        while (self.pai != None):
+            s = s + self.acao
+            self = self.pai
+
+        return s[::-1]
 
 class Moldura:
     def __init__(self):
@@ -34,12 +45,12 @@ class Moldura:
         self.buraco = (2, 2)
         self.movimentos = ['C','B','D','E']
         num = 1
-        for linha in range(0,TAMANHO):
-            self.lista.append([])
-            for coluna in range(0, TAMANHO):
-                self.lista[linha].append(str(num))
-                num = num + 1
-        self.lista[self.buraco[0]][self.buraco[1]] = ' '
+        # for linha in range(0,TAMANHO):
+        #     self.lista.append([])
+        #     for coluna in range(0, TAMANHO):
+        #         self.lista[linha].append(str(num))
+        #         num = num + 1
+        #self.lista[self.buraco[0]][self.buraco[1]] = ' '
 
 
     def str_p_lista(self, string): #modifica a lista
@@ -125,23 +136,23 @@ def sucessor(estado):
     return sucessores
 
 
-m = Moldura()
+#m = Moldura()
 
 #print(m.str_p_lista('1234 5678'))
 #print(f'buraco:  {m.buraco}')
 #print(sucessor(m.lista_p_string()))
 
-n = Nodo()
+#n = Nodo()
 #n.estado = '2 3541687'
-n.estado = '12345678 '
-expandidos =  n.expande()
+#n.estado = '12345678 '
+#expandidos =  n.expande()
 
-for e in expandidos:
-   print(e.estado, e.custo, e.acao, e.pai.estado)
+#for e in expandidos:
+#   print(e.estado, e.custo, e.acao, e.pai.estado)
 
 
 def bfs(estado): #FRONTEIRA = FILA
-    explorados = []
+    explorados = {}
     fronteira = []
     new = Nodo()
     new.estado = estado
@@ -154,7 +165,7 @@ def bfs(estado): #FRONTEIRA = FILA
             break
             #return n
         if n.estado not in explorados:
-            explorados.append(n.estado)
+            explorados[n.estado] = n
             for vizinho in n.expande():
                 #print(f'vizinho: {vizinho.estado} custo: {vizinho.custo}')
                 #print(f'{len(explorados)} explorados')
@@ -164,6 +175,10 @@ def bfs(estado): #FRONTEIRA = FILA
 
 
     return n    #
+
+
+
+
 t = time.time()
 achou = bfs('2 3541687')
 print(achou.estado)
@@ -171,6 +186,15 @@ print(achou.acao)
 print(achou.custo)
 print(achou.pai)
 print(time.time()-t)
+print(achou.caminho())
+
+# s = ''
+# while achou.pai != None:
+#     s = s + achou.acao
+#     achou = achou.pai
+#     print (s[::-1]) ###invertido
+
+
 
 
 # DFS
