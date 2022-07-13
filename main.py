@@ -1,6 +1,6 @@
 import copy
 import heapq
-import time
+#import time
 
 TAMANHO = 3
 OBJETIVO = '12345678_'
@@ -253,18 +253,18 @@ def astar_manhattan(estado): #SOMA DISTANCIA MANHATTAN
 
 ##################### TESTES ##########################
 
-t = time.time()
-#achou = astar_hamming('2_3541687')
-#achou = astar_manhattan('2_3541687')
-#achou = bfs('2_3541687')
-achou = dfs('2_3541687')
-#
-#print(f'Caminho: {achou}')
-print(f'Tempo decorrido: {time.time() - t}')
-if achou != None:
-    print(f'Custo: {len(achou)}')
-    #print(achou.pai)
-else:
-    print('Nao achou')
+# t = time.time()
+# achou = astar_hamming('185423_67')
+# #achou = astar_manhattan('185423_67')
+# #achou = bfs('185423_67')
+# #achou = dfs('185423_67')
+# #
+# #print(f'Caminho: {achou}')
+# print(f'Tempo decorrido: {time.time() - t} segundos')
+# if achou != None:
+#     print(f'Custo: {len(achou)}')
+#     #print(achou.pai)
+# else:
+#     print('Nao achou')
 
 
